@@ -30,6 +30,8 @@ function purgeOldInstallation() {
 	if [ "$?" -eq "0" ]; then
     		echo -e "${CYAN}Saving Old Installation Genkey${NC}"
 		echo -e $OLDKEY
+    echo -e "Please copy your old genkey and press enter. (Needed in later step)"
+    read -e ENTER
 	fi
     #remove old ufw port allow
     sudo ufw delete allow $COIN_PORT/tcp > /dev/null 2>&1
