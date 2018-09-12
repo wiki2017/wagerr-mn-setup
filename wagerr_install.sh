@@ -20,7 +20,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-purgeOldInstallation() {
+function purgeOldInstallation() {
     echo -e "${GREEN}Searching and removing old $COIN_NAME files and configurations${NC}"
     #kill wallet daemon
     systemctl stop $COIN_NAME.service > /dev/null 2>&1
