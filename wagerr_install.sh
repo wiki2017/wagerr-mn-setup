@@ -20,6 +20,28 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+purgeOldInstallation() {
+    echo -e "${GREEN}Searching and removing old $COIN_NAME files and configurations${NC}"
+    #kill wallet daemon
+    systemctl stop $COIN_NAME.service > /dev/null 2>&1
+    sudo killall $COIN_DAEMON > /dev/null 2>&1
+	# Save Key 
+	OLDKEY=$(awk -F'=' '/masternodeprivkey/ {print $2}' $CONFIGFOLDER/$CONFIG_FILE 2> /dev/null)
+	if [ "$?" -eq "0" ]; then
+    		echo -e "${CYAN}Saving Old Installation Genkey${NC}"
+		echo -e $OLDKEY
+	fi
+    #remove old ufw port allow
+    sudo ufw delete allow $COIN_PORT/tcp > /dev/null 2>&1
+    #remove old files
+    rm -- "$0" > /dev/null 2>&1
+    sudo rm -rf $CONFIGFOLDER > /dev/null 2>&1
+    sudo rm -rf /usr/local/bin/$COIN_CLI /usr/local/bin/$COIN_DAEMON> /dev/null 2>&1
+    sudo rm -rf /usr/bin/$COIN_CLI /usr/bin/$COIN_DAEMON > /dev/null 2>&1
+    sudo rm -rf /tmp/*
+    echo -e "${GREEN}* Done${NONE}";
+}
+
 function download_node() {
   echo -e "${GREEN}Downloading and Installing VPS $COIN_NAME Daemon${NC}"
   cd $TMP_FOLDER >/dev/null 2>&1
@@ -240,7 +262,7 @@ function setup_node() {
 
 ##### Main #####
 clear
-
+purgeOldInstallation
 checks
 prepare_system
 download_node
