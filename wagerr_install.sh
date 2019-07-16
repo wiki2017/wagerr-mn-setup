@@ -7,9 +7,10 @@ COIN_DAEMON='wagerrd'
 COIN_CLI='wagerr-cli'
 COIN_PATH='/usr/local/bin/'
 COIN_REPO='https://github.com/wagerr/wagerr.git'
-COIN_TGZ='https://github.com/wagerr/wagerr/releases/download/v2.0.0/wagerr-2.0.0-x86_64-linux-gnu.tar.gz'
+COIN_TGZ='https://github.com/wagerr/wagerr/releases/download/v3.0.0/wagerr-3.0.0-x86_64-linux-gnu.tar.gz'
+COIN_FOLDER='/root/wagerr-3.0.0/bin'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
-COIN_NAME='Wagerr'
+COIN_NAME='wagerr'
 COIN_PORT=55002
 
 
@@ -51,7 +52,7 @@ function download_node() {
   wget -q $COIN_TGZ
   compile_error
   tar xvzf $COIN_ZIP >/dev/null 2>&1
-  cd wagerr-2.0.0/bin
+  cd $COIN_FOLDER
   chmod +x $COIN_DAEMON $COIN_CLI
   compile_error
   cp $COIN_DAEMON $COIN_CLI $COIN_PATH
