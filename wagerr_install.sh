@@ -28,8 +28,8 @@ swapon /swapfile
 swapon -s
 echo "/swapfile none swap sw 0 0" >> /etc/fstab
 
-#echo "Enter alias for new node. Name must be unique! (Don't use same names as for previous nodes on old chain if you didn't delete old chain folders!)"
-   echo -e "${YELLOW}Enter alphanumeric alias for new nodes.${NC}"
+#echo "Enter alias for new node."
+   echo -e "${YELLOW}输入新节点别名.${NC}"
    read ALIAS1
 
 function purgeOldInstallation() {
@@ -126,7 +126,7 @@ EOF
 
 function create_key() {
 #  echo -e "Enter your ${RED}$COIN_NAME Masternode Private Key${NC}. Leave it blank to generate a new ${RED}Masternode Private Key${NC} for you:"
-  read -e COINKEY
+#  read -e COINKEY
   if [[ -z "$COINKEY" ]]; then
   $COIN_DAEMON -daemon
   sleep 30
@@ -260,8 +260,8 @@ function important_information() {
  echo -e "VPS_IP:PORT ${RED}$NODEIP:$COIN_PORT${NC}"
  echo -e "MASTERNODE PRIVATEKEY is: ${RED}$COINKEY${NC}"
  echo -e "Please check ${GREEN}$COIN_NAME${NC} is running with the following command: ${GREEN}systemctl status $COIN_NAME.service${NC}"
- echo -e "${RED}复制下列并黏贴到本地钱包节点配置文件. txhash 和 outputidx在本地钱包转25000WGR后到调试台输入 masternode outputs 得出{NC}"
- echo -e "MASTERNODE CONFIGURATION is ${RED}$ALIAS1 $NODEIP:$COIN_PORT $COINKEY$ "txhash" "outputidx"${NC}"
+ echo -e "${RED}复制下列并黏贴到本地钱包节点配置文件. txhash 和 outputidx在本地钱包转25000WGR后到调试台输入 masternode outputs 得出${NC}"
+ echo -e "${RED}$ALIAS1 $NODEIP:$COIN_PORT $COINKEY$ "txhash" "outputidx"${NC}"
  echo -e "================================================================================================================================"
 }
 
