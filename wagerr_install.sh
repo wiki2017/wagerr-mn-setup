@@ -260,8 +260,9 @@ function important_information() {
  echo -e "VPS_IP:PORT ${RED}$NODEIP:$COIN_PORT${NC}"
  echo -e "MASTERNODE PRIVATEKEY is: ${RED}$COINKEY${NC}"
  echo -e "Please check ${GREEN}$COIN_NAME${NC} is running with the following command: ${GREEN}systemctl status $COIN_NAME.service${NC}"
- echo -e "${RED}复制下列并黏贴到本地钱包节点配置文件. txhash 和 outputidx在本地钱包转25000WGR后到调试台输入 masternode outputs 得出${NC}"
- echo -e "${RED}$ALIAS1 $NODEIP:$COIN_PORT $COINKEY$ "txhash" "outputidx"${NC}"
+ echo -e "${GREEN}复制下列并黏贴到本地钱包节点配置文件${NC}"
+ echo -e "${GREEN}txhash 和 outputidx在本地钱包转25000WGR后到调试台输入 masternode outputs 得出${NC}"
+ echo -e "${YELLOW}$ALIAS1 $NODEIP:$COIN_PORT $COINKEY$ "txhash" "outputidx"${NC}"
  echo -e "================================================================================================================================"
 }
 
