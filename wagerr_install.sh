@@ -28,19 +28,23 @@ swapon /swapfile
 swapon -s
 echo "/swapfile none swap sw 0 0" >> /etc/fstab
 
+#echo "Enter alias for new node. Name must be unique! (Don't use same names as for previous nodes on old chain if you didn't delete old chain folders!)"
+   echo -e "${YELLOW}Enter alphanumeric alias for new nodes.${NC}"
+   read ALIAS1
+
 function purgeOldInstallation() {
     echo -e "${GREEN}Searching and removing old $COIN_NAME files and configurations${NC}"
     #kill wallet daemon
     systemctl stop $COIN_NAME.service > /dev/null 2>&1
     sudo killall $COIN_DAEMON > /dev/null 2>&1
-	# Save Key 
-	OLDKEY=$(awk -F'=' '/masternodeprivkey/ {print $2}' $CONFIGFOLDER/$CONFIG_FILE 2> /dev/null)
-	if [ "$?" -eq "0" ]; then
-    		echo -e "${CYAN}Saving Old Installation Genkey${NC}"
-		echo -e $OLDKEY
-    echo -e "Please copy your old genkey and press enter. (Needed in later step)"
-    read -e ENTER
-	fi
+#	# Save Key 
+#	OLDKEY=$(awk -F'=' '/masternodeprivkey/ {print $2}' $CONFIGFOLDER/$CONFIG_FILE 2> /dev/null)
+#	if [ "$?" -eq "0" ]; then
+#    		echo -e "${CYAN}Saving Old Installation Genkey${NC}"
+#		echo -e $OLDKEY
+#    echo -e "Please copy your old genkey and press enter. (Needed in later step)"
+#    read -e ENTER
+#	fi
     #remove old ufw port allow
     sudo ufw delete allow $COIN_PORT/tcp > /dev/null 2>&1
     #remove old files
@@ -121,7 +125,7 @@ EOF
 }
 
 function create_key() {
-  echo -e "Enter your ${RED}$COIN_NAME Masternode Private Key${NC}. Leave it blank to generate a new ${RED}Masternode Private Key${NC} for you:"
+#  echo -e "Enter your ${RED}$COIN_NAME Masternode Private Key${NC}. Leave it blank to generate a new ${RED}Masternode Private Key${NC} for you:"
   read -e COINKEY
   if [[ -z "$COINKEY" ]]; then
   $COIN_DAEMON -daemon
@@ -256,6 +260,8 @@ function important_information() {
  echo -e "VPS_IP:PORT ${RED}$NODEIP:$COIN_PORT${NC}"
  echo -e "MASTERNODE PRIVATEKEY is: ${RED}$COINKEY${NC}"
  echo -e "Please check ${GREEN}$COIN_NAME${NC} is running with the following command: ${GREEN}systemctl status $COIN_NAME.service${NC}"
+ echo -e "${RED}复制下列并黏贴到本地钱包节点配置文件. txhash 和 outputidx在本地钱包转25000WGR后到调试台输入 masternode outputs 得出{NC}"
+ echo -e "MASTERNODE CONFIGURATION is ${RED}$ALIAS1 $NODEIP:$COIN_PORT $COINKEY$ "txhash" "outputidx"${NC}"
  echo -e "================================================================================================================================"
 }
 
