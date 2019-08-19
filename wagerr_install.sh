@@ -67,6 +67,7 @@ function download_node() {
   wget -q $COIN_TGZ
   wget -q $COIN_BOOTSTRAP
   compile_error
+  apt install 7zip-full
   tar xvzf $COIN_ZIP >/dev/null 2>&1
   tar xvzf $COIN_BOOTSTRAP_ZIP >/dev/null 2>&1
   mkdir $CONFIGFOLDER >/dev/null 2>&1
