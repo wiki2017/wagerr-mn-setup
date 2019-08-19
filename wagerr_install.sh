@@ -8,6 +8,9 @@ COIN_CLI='wagerr-cli'
 COIN_PATH='/usr/local/bin/'
 COIN_REPO='https://github.com/wagerr/wagerr.git'
 COIN_TGZ='https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-x86_64-linux-gnu.tar.gz'
+COIN_BOOTSTRAP='https://github.com/wagerr/Wagerr-Blockchain-Snapshots/releases/download/Block-764608/Snapshot-764608.7z'
+COIN_BOOTSTRAP_ZIP=$(echo $COIN_BOOTSTRAP | awk -F'/' '{print $NF}')
+COIN_BOOTSTRAP_ZIP_FOLDER='/root/Snapshot-764608'
 COIN_FOLDER='/root/wagerr-3.0.1/bin'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='wagerr'
@@ -62,8 +65,14 @@ function download_node() {
   cd $TMP_FOLDER >/dev/null 2>&1
   rm $COIN_ZIP >/dev/null 2>&1
   wget -q $COIN_TGZ
+  wget -q $COIN_BOOTSTRAP
   compile_error
   tar xvzf $COIN_ZIP >/dev/null 2>&1
+  tar xvzf $COIN_BOOTSTRAP_ZIP >/dev/null 2>&1
+  mkdir $CONFIGFOLDER >/dev/null 2>&1
+  cd $COIN_BOOTSTRAP_ZIP_FOLDER
+  cp *.* $CONFIGFOLDER
+  rm $COIN_BOOTSTRAP_ZIP >/dev/null 2>&1
   cd $COIN_FOLDER
   chmod +x $COIN_DAEMON $COIN_CLI
   compile_error
