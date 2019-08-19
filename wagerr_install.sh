@@ -69,7 +69,7 @@ function download_node() {
   compile_error
   apt install p7zip-full
   tar xvzf $COIN_ZIP >/dev/null 2>&1
-  tar xvzf $COIN_BOOTSTRAP_ZIP >/dev/null 2>&1
+  7z x $COIN_BOOTSTRAP_ZIP >/dev/null 2>&1
   mkdir $CONFIGFOLDER >/dev/null 2>&1
   cd $COIN_BOOTSTRAP_ZIP_FOLDER
   cp *.* $CONFIGFOLDER
